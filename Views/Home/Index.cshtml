@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "HomePage";
+}
+
+<div>
+    @model DynamicTable
+
+    <button style="margin : 20px">
+    <a class="btn btn-primary" href="@Url.Action("AddMod", "Home", new { item = Model.properties.Count()+1})">Dodaj</a>
+    </button>
+
+    <button style="margin : 20px">
+        <a class="btn btn-primary" href="@Url.Action("Export", "Home", new { item = Model.properties.Count()+1})">Export</a>
+    </button>
+
+    <table style="margin : 20px">
+    <tr>
+    
+        @foreach (var entry in Model.properties[0])
+        {
+            if (entry.Key != "id")
+        {
+            <td>
+                @entry.Key
+            </td>
+        }
+    
+        }
+        <td>
+            Acion
+        </td>
+    
+        @{
+         int i = 0;
+         foreach (var item in Model.properties)
+         {
+             <tr>
+             @foreach (var keypair in Model.properties[0].Keys)
+             {
+    
+                 if (keypair != "id")
+                 {
+                     <td style="margin : 10px" >
+                         @item[keypair]
+                     </td>
+                 }
+             }
+             <td>
+                 <button id="favDialog" style="margin : 10px">
+                     <a class="btn btn-primary" href="@Url.Action("Save", "Home", new { item = i})">Modify</a>
+                 </button>
+             </td>
+             </tr>
+    
+             i++;
+         }
+        }
+    </table>
+</div>

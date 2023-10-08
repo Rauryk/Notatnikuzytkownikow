@@ -1,0 +1,155 @@
+﻿@{
+ViewData["Title"] = "AddMod";
+}
+
+@using Notatnikuzytkownikow.Controllers
+<form asp-action="EditProject" method="post" asp-controller="Save">
+<div>
+
+@model XML_Table
+<table style="margin : 20px">
+            @{
+                if (XML_Table.entity.properties.Count >= XML_Table._index)
+                {
+                    foreach (var entry in XML_Table.entity.properties[XML_Table._index])
+                    {
+                        <tr>
+
+                            @if (entry.Key == "id")
+                            {
+                                <td style="display:none;">
+                                    @entry.Key
+                                </td>
+                            }
+                            else
+                            {
+                                <td >
+                                    @entry.Key
+                                </td>
+                            }
+                            @if (entry.Key == "id")
+                            {
+                                <td style="display:none;">
+                                    <input asp-for="@entry" name="@entry.Key" value="@entry.Value" />
+                                </td>
+                            }
+                            else if (entry.Key == "imie")
+                            {
+                                <td>
+                                    <input asp-for="@entry" name="@entry.Key" value="@entry.Value" maxlength="50" required />
+                                </td>
+                            }
+                            else if (entry.Key == "nazwisko")
+                            {
+                                <td>
+                                    <input asp-for="@entry" name="@entry.Key" value="@entry.Value" maxlength="150" required />
+                                </td>
+                            }
+                            else if (entry.Key == "DataUrodzenia")
+                            {
+                                <td>
+                                    <input asp-for="@entry" name="@entry.Key" value="@entry.Value" type="date" max="@DateTime.Now.ToString("yyyy-MM-dd")" required pattern="\d{4}-\d{2}-\d{2}" />
+                                </td>
+                            }
+                            else if (entry.Key == "plec")
+                            {
+                                <td>
+                                    <select asp-for="@entry" name="@entry.Key"  required>
+                                        <option >M</option>
+                                        <option >K</option>
+                                    </select>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <input asp-for="@entry" name="@entry.Key" value="@entry.Value" />
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+                else
+                {
+                    foreach (var entry in XML_Table.entity.properties[0])
+                    {
+                        <tr>
+
+                        @if (entry.Key == "id")
+                        {
+                            <td style="display:none;">
+                                @entry.Key
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @entry.Key
+                            </td>
+                        }
+                        @if (entry.Key == "id")
+                        {
+                            <td style="display:none;">
+
+                                <input asp-for="@entry" name="@entry.Key" value="@XML_Table._index" />
+
+                            </td>
+                        }
+                        else if (entry.Key == "imie")
+                        {
+                            <td>
+                                <input asp-for="@entry" name="@entry.Key" value="" maxlength="50" required />
+                            </td>
+                        }
+                        else if (entry.Key == "nazwisko")
+                        {
+                            <td>
+                                <input asp-for="@entry" name="@entry.Key" value="" maxlength="150" required />
+                            </td>
+                        }
+                        else if (entry.Key == "DataUrodzenia")
+                        {
+                            <td>
+                                <input asp-for="@entry" name="@entry.Key" value="" type="date" max="@DateTime.Now.ToString("yyyy-MM-dd")" required pattern="\d{4}-\d{2}-\d{2}" />
+                            </td>
+                        }
+                        else if (entry.Key == "plec")
+                        {
+                            <td>
+                                <select asp-for="@entry" name="@entry.Key" required>
+                                    <option value="K">K</option>
+                                    <option value="M">M</option>
+                                </select>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <input asp-for="@entry" name="@entry.Key" value="" />
+                            </td>
+                        }
+                        </tr>
+
+                }
+            }
+            <tr>
+                    <td>
+                        <input name="NewDictiKey" />
+                    </td>
+
+                    <td>
+                        <input name="NewDictiValue" />
+                    </td>
+                </tr>
+            
+            }
+            <button type="submit" style="margin : 10px">
+            <a class="btn btn-primary" href="@Url.Action("back", "Home")">
+                back
+            </a>
+            </button>
+            <button id="Button" type="submit" name="submit">Save</button>
+</table>
+</div>
+
+</form>
